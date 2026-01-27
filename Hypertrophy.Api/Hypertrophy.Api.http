@@ -1,0 +1,6 @@
+@Hypertrophy.Api_HostAddress = http://localhost:5015
+
+GET {{Hypertrophy.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
