@@ -10,4 +10,8 @@
     <ProjectReference Include="../Hypertrophy.Domain/Hypertrophy.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstractions/Mediator/" />
+  </ItemGroup>
+
 </Project>

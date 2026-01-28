@@ -1,8 +1,10 @@
+using Hypertrophy.Domain.Abstractions.Mediator;
+
 namespace Hypertrophy.Domain.Abstractions;
 
 public abstract class Entity<TEntityId> : IEntity
 {
-    private readonly List<IDomainEvent> _domainEvents = new();
+    private readonly List<INotification> _domainEvents = new();
 
     public TEntityId? Id { get; init; }
     protected Entity(TEntityId id)
@@ -14,7 +16,7 @@ public abstract class Entity<TEntityId> : IEntity
 
     }
 
-    public IReadOnlyList<IDomainEvent> GetDomainEvents()
+    public IReadOnlyList<INotification> GetDomainEvents()
     {
         return _domainEvents.ToList();
     }
@@ -24,7 +26,7 @@ public abstract class Entity<TEntityId> : IEntity
         _domainEvents.Clear();
     }
 
-    protected void RaiseDomainEvent(IDomainEvent domainEvent)
+    protected void RaiseDomainEvent(INotification domainEvent)
     {
         _domainEvents.Add(domainEvent);
     }
