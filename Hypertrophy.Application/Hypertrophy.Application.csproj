@@ -11,7 +11,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Abstractions/Behaviors/" />
+    <Folder Include="Abstractions/Clock/" />
+    <Folder Include="Abstractions/Exceptions/" />
     <Folder Include="Abstractions/Mediator/" />
+    <Folder Include="Abstractions/Pagination/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="9.0.8" />
   </ItemGroup>
 
 </Project>

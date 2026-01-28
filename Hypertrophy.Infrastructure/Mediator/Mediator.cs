@@ -23,20 +23,20 @@ public sealed class Mediator : IMediator
             ?? throw new InvalidOperationException(
                 $"No handler registered for request '{requestType.FullName}' with response '{typeof(TResponse).FullName}'.");
 
-        // Pipeline behaviors (optional). If you haven't created IPipelineBehavior, remove this block and just call handler.
-        // RequestHandlerDelegate<TResponse> invokeHandler = () =>
-        //     ((dynamic)handler).Handle((dynamic)request, ct);
+        RequestHandlerDelegate<TResponse> invokeHandler = (token) => ((dynamic)handler).Handle((dynamic)request, token);
 
-        // var behaviors = ResolveBehaviors(requestType, typeof(TResponse));
+        var behaviors = ResolveBehaviors(requestType, typeof(TResponse));
 
-        // for (var i = behaviors.Count - 1; i >= 0; i--)
-        // {
-        //     var behavior = behaviors[i];
-        //     var next = invokeHandler;
-        //     invokeHandler = () => ((dynamic)behavior).Handle((dynamic)request, ct, next);
-        // }
+        for (var i = behaviors.Count - 1; i >= 0; i--)
+        {
+            var behavior = behaviors[i];
+            var next = invokeHandler;
 
-        return ((dynamic)handler).Handle((dynamic)request, ct);
+            invokeHandler = (token) =>
+                ((dynamic)behavior).Handle((dynamic)request, token, next);
+        }
+
+        return invokeHandler(ct);
     }
 
     public Task Send(IRequest request, CancellationToken ct = default)
@@ -67,13 +67,12 @@ public sealed class Mediator : IMediator
             await ((dynamic)h).Handle((dynamic)notification, ct).ConfigureAwait(false);
     }
 
-    // private List<object> ResolveBehaviors(Type requestType, Type responseType)
-    // {
-    //     //If you didn't add IPipelineBehavior in Application, return empty and remove its usage above.
-    //     var behaviorType = typeof(IPipelineBehavior<,>).MakeGenericType(requestType, responseType);
-    //     var enumerableType = typeof(IEnumerable<>).MakeGenericType(behaviorType);
+    private List<object> ResolveBehaviors(Type requestType, Type responseType)
+    {
+        var behaviorType = typeof(IPipelineBehavior<,>).MakeGenericType(requestType, responseType);
+        var enumerableType = typeof(IEnumerable<>).MakeGenericType(behaviorType);
 
-    //     var behaviorsObj = _sp.GetService(enumerableType);
-    //     return (behaviorsObj as IEnumerable)?.Cast<object>().ToList() ?? new List<object>();
-    // }
+        var behaviorsObj = _sp.GetService(enumerableType);
+        return (behaviorsObj as IEnumerable)?.Cast<object>().ToList() ?? new List<object>();
+    }
 }

@@ -34,8 +34,8 @@ public static class DependencyInjection
                 else if (def == typeof(INotificationHandler<>))
                     services.AddTransient(it, impl);
 
-                // else if (def == typeof(IPipelineBehavior<,>))
-                //     services.AddTransient(it, impl);
+                else if (def == typeof(IPipelineBehavior<,>))
+                    services.AddTransient(it, impl);
             }
         }
 
