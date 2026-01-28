@@ -6,11 +6,11 @@ public sealed class RoutineEntity : Entity<RoutineId>
 {
     public RoutineEntity() { }
 
-    public RoutineEntity(RoutineId id, string name, eRoutineType type) : base(id)
+    public RoutineEntity(RoutineId id, string name, eRoutineType type, List<RoutineDayEntity> days) : base(id)
     {
         Name = name;
         Type = type;
-        Days = new();
+        Days = days;
     }
 
     public string? Name { get; private set; }
