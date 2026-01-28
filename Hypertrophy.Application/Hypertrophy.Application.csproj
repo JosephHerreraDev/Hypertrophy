@@ -16,6 +16,8 @@
     <Folder Include="Abstractions/Exceptions/" />
     <Folder Include="Abstractions/Mediator/" />
     <Folder Include="Abstractions/Pagination/" />
+    <Folder Include="Exercise/" />
+    <Folder Include="Exercise/CreateExercise/" />
   </ItemGroup>
 
   <ItemGroup>

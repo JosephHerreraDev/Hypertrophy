@@ -27,4 +27,23 @@ public sealed class ExerciseEntity : Entity<ExerciseId>
     public List<eMuscleGroup>? SecondaryMuscleGroup { get; private set; }
     public eEquipment? Equipment { get; private set; }
     public List<Media>? ExerciseMedia { get; private set; }
+
+    public static Result<ExerciseEntity> Create(
+        string name,
+        List<eMuscleGroup> primaryMuscleGroup,
+        List<eMuscleGroup> secondaryMuscleGroup,
+        List<Media> exerciseMedia,
+        eEquipment equipment
+    )
+    {
+        var exercise = new ExerciseEntity(
+            ExerciseId.New(),
+            name,
+            primaryMuscleGroup,
+            secondaryMuscleGroup,
+            exerciseMedia,
+            equipment);
+
+        return exercise;
+    }
 }
