@@ -11,7 +11,7 @@ namespace Hypertrophy.Infrastructure;
 public sealed class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IUnitOfWork
 {
     private readonly IDateTimeProvider _dateTimeProvider;
-    public ApplicationDbContext(DbContextOptions options, IDateTimeProvider dateTimeProvider) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDateTimeProvider dateTimeProvider) : base(options)
     {
         _dateTimeProvider = dateTimeProvider;
     }

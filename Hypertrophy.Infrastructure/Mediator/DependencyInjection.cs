@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Hypertrophy.Application.Abstractions.Mediator;
+using Hypertrophy.Application.Abstractions.Behaviors;
 
 namespace Hypertrophy.Infrastructure.Mediator;
 
@@ -33,11 +34,10 @@ public static class DependencyInjection
 
                 else if (def == typeof(INotificationHandler<>))
                     services.AddTransient(it, impl);
-
-                else if (def == typeof(IPipelineBehavior<,>))
-                    services.AddTransient(it, impl);
             }
         }
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
 
         return services;
     }

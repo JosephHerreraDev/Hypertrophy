@@ -1,4 +1,3 @@
-using System;
 using Hypertrophy.Application.Abstractions.Clock;
 using Hypertrophy.Domain.Abstractions;
 using Hypertrophy.Domain.Exercise;
@@ -30,10 +29,13 @@ public static class DependencyInjection
             options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
         });
 
-        services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddSignInManager()
-                .AddDefaultTokenProviders();
+        services
+            .AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
         services.AddScoped<IExerciseRepository, ExerciseRepository>();
 
