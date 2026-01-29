@@ -36,6 +36,8 @@ public static class DependencyInjection
                     services.AddTransient(it, impl);
             }
         }
+        services.AddScoped<ISender, Mediator>();
+
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
 

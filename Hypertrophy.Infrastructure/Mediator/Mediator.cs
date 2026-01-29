@@ -4,7 +4,7 @@ using Hypertrophy.Domain.Abstractions.Mediator;
 
 namespace Hypertrophy.Infrastructure.Mediator;
 
-public sealed class Mediator : IMediator
+public sealed class Mediator : IMediator, ISender
 {
     private readonly IServiceProvider _sp;
 
