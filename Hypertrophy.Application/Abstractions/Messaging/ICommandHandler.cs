@@ -1,5 +1,5 @@
-using Hypertrophy.Application.Abstractions.Mediator;
 using Hypertrophy.Domain.Abstractions;
+using MediatR;
 namespace Hypertrophy.Application.Abstractions.Messaging;
 
 public interface ICommandHandler<TCommand> : IRequestHandler<TCommand, Result>

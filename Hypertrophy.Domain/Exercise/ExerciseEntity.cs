@@ -10,28 +10,24 @@ public sealed class ExerciseEntity : Entity<ExerciseId>
     public ExerciseEntity(
         ExerciseId id,
         string name,
-        List<eMuscleGroup> primaryMuscleGroup,
-        List<eMuscleGroup> secondaryMuscleGroup,
+        List<MuscleGroupEntity> muscleGroups,
         List<Media> exerciseMedia,
         eEquipment equipment
     ) : base(id)
     {
         Name = name;
-        PrimaryMuscleGroup = primaryMuscleGroup;
-        SecondaryMuscleGroup = secondaryMuscleGroup;
+        MuscleGroups = muscleGroups;
         ExerciseMedia = exerciseMedia;
         Equipment = equipment;
     }
     public string? Name { get; private set; }
-    public List<eMuscleGroup>? PrimaryMuscleGroup { get; private set; }
-    public List<eMuscleGroup>? SecondaryMuscleGroup { get; private set; }
+    public List<MuscleGroupEntity>? MuscleGroups { get; private set; }
     public eEquipment? Equipment { get; private set; }
     public List<Media>? ExerciseMedia { get; private set; }
 
     public static Result<ExerciseEntity> Create(
         string name,
-        List<eMuscleGroup> primaryMuscleGroup,
-        List<eMuscleGroup> secondaryMuscleGroup,
+        List<MuscleGroupEntity> muscleGroups,
         List<Media> exerciseMedia,
         eEquipment equipment
     )
@@ -39,8 +35,7 @@ public sealed class ExerciseEntity : Entity<ExerciseId>
         var exercise = new ExerciseEntity(
             ExerciseId.New(),
             name,
-            primaryMuscleGroup,
-            secondaryMuscleGroup,
+            muscleGroups,
             exerciseMedia,
             equipment);
 

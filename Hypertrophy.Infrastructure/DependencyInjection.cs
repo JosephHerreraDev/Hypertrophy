@@ -1,9 +1,9 @@
+using Hypertrophy.Application;
 using Hypertrophy.Application.Abstractions.Clock;
 using Hypertrophy.Domain.Abstractions;
 using Hypertrophy.Domain.Exercise;
 using Hypertrophy.Infrastructure.Clock;
 using Hypertrophy.Infrastructure.Identity;
-using Hypertrophy.Infrastructure.Mediator;
 using Hypertrophy.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -37,11 +37,11 @@ public static class DependencyInjection
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+        services.AddApplication();
+
         services.AddScoped<IExerciseRepository, ExerciseRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
-
-        services.AddHypertrophyMediator(typeof(Hypertrophy.Application.DependencyInjection).Assembly);
 
         return services;
     }

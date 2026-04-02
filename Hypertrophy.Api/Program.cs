@@ -1,3 +1,4 @@
+using System.Reflection;
 using Hypertrophy.Infrastructure;
 using Scalar.AspNetCore;
 
@@ -13,6 +14,10 @@ builder.Services.AddDataProtection();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

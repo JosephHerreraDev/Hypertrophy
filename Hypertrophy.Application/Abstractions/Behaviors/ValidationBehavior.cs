@@ -1,8 +1,8 @@
 using System;
 using FluentValidation;
 using Hypertrophy.Application.Abstractions.Exceptions;
-using Hypertrophy.Application.Abstractions.Mediator;
 using Hypertrophy.Application.Abstractions.Messaging;
+using MediatR;
 
 namespace Hypertrophy.Application.Abstractions.Behaviors;
 

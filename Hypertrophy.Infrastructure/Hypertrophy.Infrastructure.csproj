@@ -15,7 +15,6 @@
     <Folder Include="Configurations/" />
     <Folder Include="Extensions/" />
     <Folder Include="Identity/" />
-    <Folder Include="Mediator/" />
     <Folder Include="Repositories/" />
   </ItemGroup>
 

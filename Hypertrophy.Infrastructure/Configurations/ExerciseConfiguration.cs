@@ -20,21 +20,51 @@ internal class ExerciseConfiguration : IEntityTypeConfiguration<ExerciseEntity>
         .HasMaxLength(200)
         .IsRequired();
 
-        builder.Property(x => x.PrimaryMuscleGroup)
-            .HasColumnName("primary_muscle_groups")
-            .HasColumnType("jsonb");
-
-        builder.Property(x => x.SecondaryMuscleGroup)
-            .HasColumnName("secondary_muscle_groups")
-            .HasColumnType("jsonb");
+        builder.HasMany(x => x.MuscleGroups)
+           .WithOne(x => x.Exercise)
+           .HasForeignKey(x => x.ExerciseId);
 
         builder.Property(x => x.Equipment)
             .HasColumnName("equipment")
             .HasConversion<int>();
 
-        builder.Property(x => x.ExerciseMedia)
-            .HasColumnName("exercise_media")
-            .HasColumnType("jsonb");
+        builder.OwnsMany(x => x.ExerciseMedia, media =>
+        {
+            media.ToTable("exercise_media");
+            media.WithOwner()
+            .HasForeignKey("exercise_id");
 
+            media.Property<Guid>("id");
+            media.HasKey("id");
+
+            media.Property(m => m.Kind)
+                .HasColumnName("kind")
+                .HasConversion<int>();
+
+            media.Property(m => m.Url)
+            .HasColumnName("url")
+            .HasColumnType("text")
+            .HasConversion(
+                uri => uri == null ? null : uri.ToString(),
+                value => string.IsNullOrWhiteSpace(value) ? null :
+                new Uri(value, UriKind.Absolute)
+            );
+
+            media.Property(m => m.ThumbnailUrl)
+                .HasColumnName("thumbnail_url")
+                .HasColumnType("text");
+
+            media.Property(m => m.MimeType)
+                .HasColumnName("mime_type")
+                .HasMaxLength(100);
+            media.Property(m => m.Width)
+                .HasColumnName("width");
+
+            media.Property(m => m.Height)
+                .HasColumnName("height");
+
+            media.Property(m => m.Duration)
+                .HasColumnName("duration");
+        });
     }
 }

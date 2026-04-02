@@ -1,5 +1,5 @@
-using Hypertrophy.Application.Abstractions.Mediator;
 using Hypertrophy.Application.Exercise.CreateExercise;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
